@@ -1,15 +1,18 @@
 from Data import *
 
 def interpolate(value,x1,y1,x2,y2):
+    """Linear Interpolatation of Values"""
     outputval = ((y1-y2)/(x1-x2))*(value-x1)+y1
     return outputval
 
 def writetotempfile(object):
+    """Writes to a temporary file used to add new data to the list"""
     file = open('testfile.txt','w')
     file.write(str(object))
     file.close()
 
 def sciconv(number):
+    """Tries To convert numbers to a python friendly format 11,000 and 1.1 * 10^3 to 11000"""
     if ',' in number:
         for index in range(len(number)-1):
             char = number[index]
@@ -30,6 +33,7 @@ def sciconv(number):
         return (float(numblist[0]))*(int(numblist[1])**int(numblist[2]))
 
 def getdata(inputfilename,columnlist,units):
+    """Reads a given data file, goes line by line splitting values and turning into python dictionary foramt in temporary file"""
     datafile = open(inputfilename,'r')
 
     datalist =[]
@@ -101,6 +105,7 @@ def getdata(inputfilename,columnlist,units):
     writetotempfile(finallist)
 
 def convUnits(data,parameter,currentunits,value):
+    """Used to check units, make sure if a table needs K the input will match"""
 
     specifiedunits = data[0][parameter][1]
     #print(specifiedunits)
@@ -121,6 +126,7 @@ def convUnits(data,parameter,currentunits,value):
             return value
 
 def findVals(dicts,parameter,val):
+    """Goes through an entire dictionary and selects the two lines a value is inbetween"""
     val = float(val)
     lowervalue = 0
     uppervalue = 0
@@ -135,6 +141,7 @@ def findVals(dicts,parameter,val):
     return upperline,lowerline
 
 def Betweentwolines(upper,lower,setparameter,number):
+    """ Goes through each parameter in the two lines and linearly interpolates each value"""
     number = float(number)
     newlist =[]
     referupper = upper[setparameter][0]
@@ -156,9 +163,9 @@ def Betweentwolines(upper,lower,setparameter,number):
 #up,low= findVals(metricIdealAir,'Tempature',215)
 #print(Betweentwolines(up,low,'Tempature',215))
 
-getdata('metsatrefrig.txt',
-['Temperature','Saturation Pressure','Specific Volume Saturated Liquid','Specific Volume Saturated Vapour','Internal Energy Saturated Liquid','Internal Energy Evaporation','Internal Energy Saturated Vapour','Enthalpy Saturated Liquid','Enthalpy Evaporation','Enthalpy Saturated Vapour','Entropy Saturated Liquid','Entropy Evaporation','Entropy Saturated Vapour'],
-['C','kPa','m^3/kg','m^3/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/(kg*K)','kJ/(kg*K)','kJ/(kg*K)'])
+#getdata('metsatrefrig.txt',
+#['Temperature','Saturation Pressure','Specific Volume Saturated Liquid','Specific Volume Saturated Vapour','Internal Energy Saturated Liquid','Internal Energy Evaporation','Internal Energy Saturated Vapour','Enthalpy Saturated Liquid','Enthalpy Evaporation','Enthalpy Saturated Vapour','Entropy Saturated Liquid','Entropy Evaporation','Entropy Saturated Vapour'],
+#['C','kPa','m^3/kg','m^3/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/kg','kJ/(kg*K)','kJ/(kg*K)','kJ/(kg*K)'])
 
 #print(3*10**4)
         # templist=[]

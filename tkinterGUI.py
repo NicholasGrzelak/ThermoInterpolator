@@ -1,3 +1,6 @@
+#Copywrite Nicholas Grzelak 2022
+#feel free to edit and expand application but make sure its avaliable to the public for free
+
 import tkinter as tk
 from tkinter.messagebox import showinfo
 from tkinter import ttk
@@ -14,6 +17,8 @@ mainfont = ('Yu Gothic UI',16)
 
 fram = tk.Frame(master=window)
 
+#Main Inputs initalized
+
 UnitsText = tk.Label(master=fram,text='Unit system: ',font=mainfont)
 unitsCombobox = ttk.Combobox(fram,font=mainfont)
 unitsCombobox['values'] = ('Metric','Imperial')
@@ -24,6 +29,8 @@ TableCombobox = ttk.Combobox(fram,font=mainfont)
 ValueComboBox = ttk.Combobox(fram,font=mainfont)
 ValueEntry = tk.Entry(master=fram, width=10,font=mainfont)
 Workingunits = ttk.Combobox(fram,font=mainfont)
+
+#Button Click Command
 
 def ButtonClick():
     Cur_Units = unitsCombobox.get()
@@ -77,8 +84,11 @@ def ButtonClick():
         message=f'{outstr}'
     )
 
+# Initialized Button
 
 FinishedButton = tk.Button(master=fram,text='OK',font=mainfont,command=ButtonClick)
+
+#Places all components on grid
 
 UnitsText.grid(row=0, column=0, sticky="e")
 unitsCombobox.grid(row=0, column=1, sticky="w")
@@ -93,6 +103,8 @@ Workingunits.grid(row=2, column=2, sticky="w")
 FinishedButton.grid(row=3,column=1,sticky='w')
 
 fram.grid(row=0, column=0, padx=10)
+
+#Updates dropdown menu items
 
 def UpdateParameters(event):
     Cur_Units = unitsCombobox.get()
